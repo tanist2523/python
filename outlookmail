@@ -1,0 +1,29 @@
+def outlookmail(targets, titles, messages):
+    import smtplib, mimetypes
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.header import Header
+    
+    mail_from="xxx@mail.yyy.com.tw"
+    
+    msg = MIMEMultipart()
+    msg['From'] = mail_from
+    msg['To'] = targets
+    msg['Subject'] = Header(titles, charset='UTF-8')#mail_title
+    
+    #mail_text
+    txt = MIMEText(messages, _subtype='html',  _charset='UTF-8')
+    msg.attach(txt)
+    
+    #send_mail
+    smtp = smtplib.SMTP()
+    
+    #add_mail_server
+    smtp.connect('add_your_mail_server.com.tw')
+    
+    #add_your_mail_server_count and password
+    smtp.login('xxx', 'xxx')
+    smtp.sendmail(mail_from, targets, msg.as_string())
+    smtp.quit()
+    print ('send_outlookmail_succ')
+    
